@@ -5,7 +5,6 @@ import sqlite3
 import json
 import pickle
 from datetime import datetime
-import matplotlib.pyplot as plt
 
 # --- Load model & scaler ---
 with open("best_model.pkl", "rb") as f:
@@ -78,7 +77,7 @@ if st.button("Predict Fraud"):
     prediction = model.predict(input_scaled)[0]
     probability = model.predict_proba(input_scaled)[0][1]
     
-    result_text = "⚠ Fraud Detected!" if prediction == 1 else "✅ No Fraud Detected"
+    result_text = "⚠️ Fraud Detected!" if prediction == 1 else "✅ No Fraud Detected"
     st.success(result_text)
     st.info(f"Fraud Probability: {probability * 100:.2f}%")
 
@@ -104,11 +103,11 @@ if st.sidebar.button("Show Daily Fraud Trends"):
         df['timestamp'] = pd.to_datetime(df['timestamp'])
         df['date'] = df['timestamp'].dt.date
         daily_fraud = df[df['prediction'] == '1'].groupby('date').count()['id']
-        st.sidebar.line_chart(daily_fraud)
+        st.sidebar.line_chart(daily_fraud)  # Removed matplotlib, using Streamlit's built-in line chart
 
 if st.sidebar.button("View All Prediction Entries"):
     df = pd.read_sql("SELECT * FROM predictions", conn)
     st.dataframe(df)
 
 st.sidebar.write("---")
-st.sidebar.write(" Developed by L Kishore , Data science intern employee")
+st.sidebar.write("Made with ❤️ for L KISHORE")
