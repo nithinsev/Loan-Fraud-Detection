@@ -3,4 +3,4 @@ pandas
 numpy
 scikit-learn
 matplotlib
-sqlite3  
+sqlite3  # (usually part of Python stdlib, but okay to mention)
